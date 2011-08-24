@@ -1,0 +1,7 @@
+dist
+*.lkshs
+*.lkshw
+.DS_Store
+*.o
+*.hi
+Main
