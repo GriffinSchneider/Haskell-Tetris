@@ -27,12 +27,6 @@ instance Show World where show (World p s _) = "World: \n  Piece: \n    " ++ (sh
 timerTick :: World -> World
 timerTick world = moveDown world
 
-isCollision :: World -> Bool
-isCollision world@(World p s _) = (ormap (containsBlock p) (getAllBlocks s)) || (isOutsideBounds world)
-
-isOutsideBounds :: World -> Bool
-isOutsideBounds (World p _ _) = isPieceOutsideBounds p (-4) (-100) 5 9
-
 makeGameWithPieceList :: [Int] -> World
 makeGameWithPieceList nums = getNextPiece $ World (makePiece Piece.T) [] nums
 
@@ -74,3 +68,9 @@ pieceFromNumber n = (map makePiece [Piece.O,Piece.I,Piece.T,Piece.J,Piece.L,Piec
 
 combinePiece :: World -> World
 combinePiece (World p s nums) = getNextPiece $ World p (removeFullRows (addPiece p s) 10) nums
+
+isCollision :: World -> Bool
+isCollision world@(World p s _) = (ormap (containsBlock p) (getAllBlocks s)) || (isOutsideBounds world)
+
+isOutsideBounds :: World -> Bool
+isOutsideBounds (World p _ _) = isPieceOutsideBounds p (-4) (-100) 5 9

@@ -20,14 +20,15 @@ data Piece = Piece [Block] (Vector2 GLfloat)
     deriving (Show)
 
 makePiece :: PieceShape -> Piece
-makePiece shape = let center = startingCoordsFromShape shape in
-  Piece (shiftBlocks (blocksFromShape shape) center) center
-
+makePiece shape = Piece (shiftBlocks (blocksFromShape shape) center) center
+  where center  = startingCoordsFromShape shape
+        blocksFromShape s = map (\ v -> Block v (colorFromShape s)) (blockCoordsFromShape s)
 rotateBlocks :: [Block] -> RotateDirection -> Vector2(GLfloat) -> [Block]
 rotateBlocks blocks d v = map (\ b -> rotateBlock b v d) blocks
 
 movePiece :: Piece -> Vector2(GLfloat) -> Piece
 movePiece (Piece blocks v) v1@(Vector2 tx ty) = Piece (shiftBlocks blocks v1) (translateVector v tx ty)
+  where translateVector (Vector2 x1 y1) x2 y2 = Vector2 (x1 + x2) (y1 + y2)
 
 rotatePiece :: Piece -> RotateDirection -> Piece
 rotatePiece (Piece blocks v) d = Piece (rotateBlocks blocks d v) v
@@ -42,12 +43,6 @@ changePieceColor :: Piece -> Color4 GLfloat -> Piece
 changePieceColor (Piece blocks v) color = (Piece (map (\ (Block v _) -> (Block v color)) blocks) v)
 
 -- Helper functions
-blocksFromShape :: PieceShape -> [Block]
-blocksFromShape s = map (\ v -> Block v (colorFromShape s)) (blockCoordsFromShape s)
-
-translateVector :: Vector2 GLfloat -> GLfloat -> GLfloat -> Vector2 GLfloat
-translateVector (Vector2 x1 y1) x2 y2 = Vector2 (x1 + x2) (y1 + y2)
-
 startingCoordsFromShape :: PieceShape -> Vector2 GLfloat
 startingCoordsFromShape Piece.O = Vector2 0.5 0.5
 startingCoordsFromShape _ = Vector2 0 0

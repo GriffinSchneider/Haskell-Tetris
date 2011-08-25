@@ -22,17 +22,16 @@ getAllBlocks stack = foldr (\x acc -> addAllToList x acc) [] stack
 
 addPiece :: Piece -> Stack -> Stack
 addPiece (Piece blocks _) s = addBlocks blocks s
+  where addBlock b@(Block (Vector2 _ y) _) s = addBlockAtRow b (round y) s
+        addBlocks bs s = foldr (\b acc -> addBlock b acc) s bs
 
 removeFullRows :: Stack -> Int -> Stack
 removeFullRows s width = setBlockYsByRowNumber $ removeRows s fullRows
   where fullRows = getFullRowIndices s width
+        getFullRowIndices s width = getTrueIndices $ map (\b -> isRowFull b width) s
+        isRowFull blocks width = (length blocks) >= width
 
 -- Helper functions
-addBlocks :: [Block] -> Stack -> Stack
-addBlocks bs s = foldr (\b acc -> addBlock b acc) s bs
-
-addBlock :: Block -> Stack -> Stack
-addBlock b@(Block (Vector2 _ y) _) s = addBlockAtRow b (round y) s
 
 addBlockAtRow b r ss = addBlockAtRowH b (9 - r) ss
 addBlockAtRow :: Block -> Int -> Stack -> Stack
@@ -45,12 +44,6 @@ removeRowsH :: Stack -> [Int] -> Int -> Stack
 removeRowsH (s:[]) nums acc = if elem acc nums then [] else [s]
 removeRowsH (s:ss) nums acc = if elem acc nums then x else s:x
   where x = removeRowsH ss nums (acc + 1)
-
-getFullRowIndices :: Stack -> Int -> [Int]
-getFullRowIndices s width = getTrueIndices $ map (\b -> isRowFull b width) s
-
-isRowFull :: [Block] -> Int -> Bool
-isRowFull blocks width = (length blocks) >= width
 
 getTrueIndices :: [Bool] -> [Int]
 getTrueIndices l =  getTrueIndicesH l 0
