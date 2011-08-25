@@ -33,8 +33,8 @@ removeFullRows s width = setBlockYsByRowNumber $ removeRows s fullRows
 
 -- Helper functions
 
-addBlockAtRow b r ss = addBlockAtRowH b (9 - r) ss
 addBlockAtRow :: Block -> Int -> Stack -> Stack
+addBlockAtRow b r ss = addBlockAtRowH b (9 - r) ss
 addBlockAtRowH b r   []   = if (r == 0) then [[b]]    else []:(addBlockAtRowH b (r - 1) [])
 addBlockAtRowH b r (s:ss) = if (r == 0) then (b:s):ss else  s:(addBlockAtRowH b (r - 1) ss)
 
