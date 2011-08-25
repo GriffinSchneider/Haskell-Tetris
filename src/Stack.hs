@@ -1,5 +1,9 @@
 module Stack (
-  Stack, getAllBlocks, addPiece, removeFullRows, showStack
+  Stack,
+  getAllBlocks,
+  addPiece,
+  removeFullRows,
+  showStack,
 ) where
 
 import Graphics.Rendering.OpenGL

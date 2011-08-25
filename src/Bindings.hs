@@ -1,5 +1,7 @@
 module Bindings (
-  display,reshape,keyboardMouse
+  display,
+  reshape,
+  keyboardMouse,
 ) where
 
 import Graphics.Rendering.OpenGL

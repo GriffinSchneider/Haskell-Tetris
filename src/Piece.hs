@@ -1,6 +1,12 @@
 module Piece (
-  PieceShape(O,I,T,J,L,Z,S), Piece(Piece), movePiece, containsBlock, makePiece, rotatePiece,
-  isPieceOutsideBounds, changePieceColor
+  PieceShape(O,I,T,J,L,Z,S),
+  Piece(Piece),
+  movePiece,
+  containsBlock,
+  makePiece,
+  rotatePiece,
+  isPieceOutsideBounds,
+  changePieceColor,
 ) where
 
 import Graphics.Rendering.OpenGL

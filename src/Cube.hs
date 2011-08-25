@@ -1,5 +1,6 @@
 module Cube (
-  cube, cubeLines
+  cube,
+  cubeLines,
 ) where
 
 import Graphics.Rendering.OpenGL

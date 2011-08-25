@@ -1,6 +1,15 @@
 module TetrisWorld (
-  World(World), Stack, timerTick, moveLeft, moveRight, moveDown, rotateTetra, fastFall,
-  fastFallPiece, makeGameWithPieceList, getAllBlocks
+  World(World),
+  Stack,
+  timerTick,
+  moveLeft,
+  moveRight,
+  moveDown,
+  rotateTetra,
+  fastFall,
+  fastFallPiece,
+  makeGameWithPieceList,
+  getAllBlocks,
 ) where
 
 import Graphics.Rendering.OpenGL

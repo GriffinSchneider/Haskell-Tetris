@@ -1,5 +1,6 @@
 module ListComprehension (
-    ormap, andmap
+    ormap,
+    andmap,
 ) where
 
 ormap :: (a -> Bool) -> [a] -> Bool

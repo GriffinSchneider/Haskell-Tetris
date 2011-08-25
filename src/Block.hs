@@ -1,6 +1,14 @@
 module Block (
-  Block(Block), RotateDirection(Clockwise, CounterClockwise), shiftBlock, shiftBlocks,
-  matchesVector, rotateBlock, isBlockOutsideBounds, left, right, down
+  Block(Block),
+  RotateDirection(Clockwise, CounterClockwise),
+  shiftBlock,
+  shiftBlocks,
+  matchesVector,
+  rotateBlock,
+  isBlockOutsideBounds,
+  left,
+  right,
+  down,
 ) where
 
 import Graphics.Rendering.OpenGL

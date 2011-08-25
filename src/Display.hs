@@ -1,5 +1,5 @@
 module Display (
-  display
+  display,
 ) where
 
 import Graphics.Rendering.OpenGL
