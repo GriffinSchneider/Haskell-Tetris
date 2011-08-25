@@ -10,7 +10,6 @@ module Piece (
 ) where
 
 import Graphics.Rendering.OpenGL
-import ListComprehension
 import Block
 
 data PieceShape = O | I | T | J | L | Z | S
@@ -34,10 +33,10 @@ rotatePiece :: Piece -> RotateDirection -> Piece
 rotatePiece (Piece blocks v) d = Piece (rotateBlocks blocks d v) v
 
 containsBlock :: Piece -> Block -> Bool
-containsBlock (Piece blocks _) (Block v _) = ormap (\ block -> (matchesVector block v)) blocks
+containsBlock (Piece blocks _) (Block v _) = any (\ block -> (matchesVector block v)) blocks
 
 isPieceOutsideBounds :: Piece -> GLfloat -> GLfloat -> GLfloat -> GLfloat -> Bool
-isPieceOutsideBounds (Piece blocks _) minX minY maxX maxY = ormap (\ b -> isBlockOutsideBounds b minX minY maxX maxY) blocks
+isPieceOutsideBounds (Piece blocks _) minX minY maxX maxY = any (\ b -> isBlockOutsideBounds b minX minY maxX maxY) blocks
 
 changePieceColor :: Piece -> Color4 GLfloat -> Piece
 changePieceColor (Piece blocks v) color = (Piece (map (\ (Block v _) -> (Block v color)) blocks) v)

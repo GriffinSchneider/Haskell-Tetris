@@ -13,7 +13,6 @@ module TetrisWorld (
 ) where
 
 import Graphics.Rendering.OpenGL
-import ListComprehension
 import Piece
 import Block
 import System.Random
@@ -70,7 +69,7 @@ combinePiece :: World -> World
 combinePiece (World p s nums) = getNextPiece $ World p (removeFullRows (addPiece p s) 10) nums
 
 isCollision :: World -> Bool
-isCollision world@(World p s _) = (ormap (containsBlock p) (getAllBlocks s)) || (isOutsideBounds world)
+isCollision world@(World p s _) = (any (containsBlock p) (getAllBlocks s)) || (isOutsideBounds world)
 
 isOutsideBounds :: World -> Bool
 isOutsideBounds (World p _ _) = isPieceOutsideBounds p (-4) (-100) 5 9
