@@ -44,8 +44,9 @@ changePieceColor (Piece blocks v) color = (Piece (map (\ (Block v _) -> (Block v
 
 -- Helper functions
 startingCoordsFromShape :: PieceShape -> Vector2 GLfloat
-startingCoordsFromShape Piece.O = Vector2 0.5 0.5
-startingCoordsFromShape _ = Vector2 0 0
+startingCoordsFromShape shape = case shape of
+  Piece.O -> Vector2 0.5 0.5
+  _       -> Vector2 0 0
 
 blockCoordsFromShape :: PieceShape -> [Vector2 GLfloat]
 blockCoordsFromShape Piece.O =
