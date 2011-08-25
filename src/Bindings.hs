@@ -1,5 +1,4 @@
 module Bindings (
-  display,
   reshape,
   keyboardMouse,
 ) where
@@ -21,6 +20,7 @@ keyboardMouse world key state modifiers position = do
   w <- get world
   world $= worldAfterKey w key state
 
+-- Helper functions
 worldAfterKey :: World -> Key -> KeyState -> World
 worldAfterKey world k Down
   | k == (Char 'q')            = error "quit!"

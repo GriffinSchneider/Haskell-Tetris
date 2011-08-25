@@ -64,9 +64,3 @@ setBlockYsByRowNumber stack = setBlockYsByRowNumberH stack 0
 setBlockYsByRowNumberH :: Stack -> Int -> Stack
 setBlockYsByRowNumberH [] acc = []
 setBlockYsByRowNumberH (bs:bss) acc = (map (\ (Block (Vector2 x _) c) -> (Block (Vector2 x (fromIntegral (9 - acc))) c)) bs):(setBlockYsByRowNumberH bss (acc + 1))
-
-
-
-
-
-

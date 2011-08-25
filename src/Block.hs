@@ -1,7 +1,6 @@
 module Block (
   Block(Block),
   RotateDirection(Clockwise, CounterClockwise),
-  shiftBlock,
   shiftBlocks,
   matchesVector,
   rotateBlock,
@@ -25,9 +24,6 @@ left  = (Vector2 (-1) (0::GLfloat))
 right = (Vector2   1  (0::GLfloat))
 down  = (Vector2   0  (1::GLfloat))
 
-shiftBlock :: Block -> Vector2 GLfloat -> Block
-shiftBlock (Block (Vector2 x y) c) (Vector2 tx ty) = (Block (Vector2 (x + tx) (y + ty)) c)
-
 shiftBlocks :: [Block] -> Vector2 GLfloat -> [Block]
 shiftBlocks blocks v = map (\ b -> shiftBlock b v) blocks
 
@@ -44,3 +40,7 @@ matchesVector (Block (Vector2 x y) _) (Vector2 x1 y1) = x == x1 && y == y1
 
 isBlockOutsideBounds :: Block -> GLfloat -> GLfloat -> GLfloat -> GLfloat -> Bool
 isBlockOutsideBounds (Block (Vector2 x y) _) minX minY maxX maxY = x < minX || x > maxX || y < minY || y > maxY
+
+-- Helper functions
+shiftBlock :: Block -> Vector2 GLfloat -> Block
+shiftBlock (Block (Vector2 x y) c) (Vector2 tx ty) = (Block (Vector2 (x + tx) (y + ty)) c)

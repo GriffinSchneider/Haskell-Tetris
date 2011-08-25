@@ -11,6 +11,13 @@ import Block
 import Piece
 import TetrisWorld
 
+display world = do
+  clear [ColorBuffer, DepthBuffer]
+--  rotate 0.05 (Vector3 0 1.0 (0::GLfloat))
+  drawWorld world
+  swapBuffers
+
+-- Helper methods
 drawCube :: GLfloat -> Vector3 GLfloat -> Color4 GLfloat -> IO()
 drawCube w v c = preservingMatrix $ do
   translate v
@@ -33,9 +40,3 @@ drawGhost w@(World p s _) = drawPiece $ changePieceColor (fastFallPiece w) (Colo
 
 drawWorld :: World -> IO ()
 drawWorld w@(World p s _) = drawGhost w >> drawPiece p >> drawStack s
-
-display world = do
-  clear [ColorBuffer, DepthBuffer]
---  rotate 0.05 (Vector3 0 1.0 (0::GLfloat))
-  drawWorld world
-  swapBuffers

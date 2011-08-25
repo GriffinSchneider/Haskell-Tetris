@@ -4,6 +4,7 @@ import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 import Data.IORef
 import Bindings
+import Display
 import Piece
 import Block
 import TetrisWorld

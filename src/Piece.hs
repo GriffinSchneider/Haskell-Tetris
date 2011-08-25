@@ -35,17 +35,18 @@ rotatePiece (Piece blocks v) d = Piece (rotateBlocks blocks d v) v
 containsBlock :: Piece -> Block -> Bool
 containsBlock (Piece blocks _) (Block v _) = ormap (\ block -> (matchesVector block v)) blocks
 
-blocksFromShape :: PieceShape -> [Block]
-blocksFromShape s = map (\ v -> Block v (colorFromShape s)) (blockCoordsFromShape s)
-
-translateVector :: Vector2 GLfloat -> GLfloat -> GLfloat -> Vector2 GLfloat
-translateVector (Vector2 x1 y1) x2 y2 = Vector2 (x1 + x2) (y1 + y2)
-
 isPieceOutsideBounds :: Piece -> GLfloat -> GLfloat -> GLfloat -> GLfloat -> Bool
 isPieceOutsideBounds (Piece blocks _) minX minY maxX maxY = ormap (\ b -> isBlockOutsideBounds b minX minY maxX maxY) blocks
 
 changePieceColor :: Piece -> Color4 GLfloat -> Piece
 changePieceColor (Piece blocks v) color = (Piece (map (\ (Block v _) -> (Block v color)) blocks) v)
+
+-- Helper functions
+blocksFromShape :: PieceShape -> [Block]
+blocksFromShape s = map (\ v -> Block v (colorFromShape s)) (blockCoordsFromShape s)
+
+translateVector :: Vector2 GLfloat -> GLfloat -> GLfloat -> Vector2 GLfloat
+translateVector (Vector2 x1 y1) x2 y2 = Vector2 (x1 + x2) (y1 + y2)
 
 startingCoordsFromShape :: PieceShape -> Vector2 GLfloat
 startingCoordsFromShape Piece.O = Vector2 0.5 0.5
