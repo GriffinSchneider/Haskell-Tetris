@@ -35,7 +35,7 @@ drawWorld :: World -> IO ()
 drawWorld w@(World p s _) = drawGhost w >> drawPiece p >> drawStack s
 
 display world = do
-  clear [ColorBuffer]
+  clear [ColorBuffer, DepthBuffer]
 --  rotate 0.05 (Vector3 0 1.0 (0::GLfloat))
   drawWorld world
   swapBuffers

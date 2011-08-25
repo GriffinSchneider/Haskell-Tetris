@@ -13,8 +13,8 @@ import Array
 main :: IO()
 main = do
   (progname,_) <- getArgsAndInitialize
---  initialDisplayMode $= [DoubleBuffered, RGBMode, WithDepthBuffer]
-  initialDisplayMode $= [DoubleBuffered]
+  initialDisplayMode $= [DoubleBuffered, RGBAMode, WithDepthBuffer]
+
   createWindow "Hello World"
   windowSize $= Size 400 400
   initGL
@@ -38,7 +38,7 @@ inspect_stream = foldr (\x -> (seq x).(x:)) []
 
 initGL :: IO ()
 initGL = do
- depthFunc $= Just Gequal
+ depthFunc $= Just Lequal
  scale 0.1 (-0.1) (0.1::GLfloat)
 
 disp :: IORef World -> IO()
