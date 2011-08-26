@@ -3,7 +3,6 @@ module Bindings (
   keyboardMouse,
 ) where
 
-import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 import Data.IORef
 

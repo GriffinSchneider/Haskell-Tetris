@@ -11,38 +11,38 @@ module Block (
   showsBlock
 ) where
 
-import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 import Cube
+import Constants
 
-data Block = Block (Vector2 GLfloat) (Color4 GLfloat)
+data Block = Block V2 (Color4 GLfloat)
 
 instance Show Block where show b = showsBlock b ""
 showsBlock :: Block -> ShowS
-showsBlock (Block (Vector2 x y) _) = ('|':) . shows x . (", "++) . shows (round y) . ('|':)
+showsBlock (Block (V2 x y) _) = ('|':) . shows x . (", "++) . shows (round y) . ('|':)
 
 -- | RotateDirection - Clockwise or Counter-Clockwise
 data RotateDirection = Cw | Ccw
 
-left  = (Vector2 (-1) (0::GLfloat))
-right = (Vector2   1  (0::GLfloat))
-down  = (Vector2   0  (1::GLfloat))
+left  = (V2 (-1) 0)
+right = (V2   1  0)
+down  = (V2   0  1)
 
-shiftBlocks :: [Block] -> Vector2 GLfloat -> [Block]
+shiftBlocks :: [Block] -> V2 -> [Block]
 shiftBlocks blocks v = map (\ b -> shiftBlock b v) blocks
- where shiftBlock (Block (Vector2 x y) c) (Vector2 tx ty) = (Block (Vector2 (x + tx) (y + ty)) c)
+ where shiftBlock (Block v c) tv = Block (translateV2 v tv) c
 
-rotateBlock :: Block -> Vector2 GLfloat -> RotateDirection -> Block
+rotateBlock :: Block -> V2 -> RotateDirection -> Block
 rotateBlock (Block v color) center direction = Block (rotateVector v center direction) color
 
-rotateVector :: Vector2 GLfloat -> Vector2 GLfloat -> RotateDirection -> Vector2 GLfloat
-rotateVector v@(Vector2 x y) c@(Vector2 cx cy) dir = case dir of
-  Ccw -> Vector2 (cx + (cy - y)) (cy + (x - cx))
+rotateVector :: V2 -> V2 -> RotateDirection -> V2
+rotateVector v@(V2 x y) c@(V2 cx cy) dir = case dir of
+  Ccw -> V2 (cx + (cy - y)) (cy + (x - cx))
   _   -> rotateVector (rotateVector (rotateVector v c Ccw) c Ccw) c Ccw
 
-matchesVector :: Block -> Vector2 GLfloat -> Bool
-matchesVector (Block (Vector2 x y) _) (Vector2 x1 y1) = x == x1 && y == y1
+matchesVector :: Block -> V2 -> Bool
+matchesVector (Block (V2 x y) _) (V2 x1 y1) = x == x1 && y == y1
 
-isBlockOutsideBounds :: Block -> Vector4 GLfloat -> Bool
-isBlockOutsideBounds (Block (Vector2 x y) _) (Vector4 minX minY maxX maxY) =
+isBlockOutsideBounds :: Block -> V4 -> Bool
+isBlockOutsideBounds (Block (V2 x y) _) (V4 minX minY maxX maxY) =
    x < minX || x > maxX || y < minY || y > maxY

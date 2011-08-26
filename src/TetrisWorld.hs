@@ -18,14 +18,13 @@ import Block
 import System.Random
 import Array
 import Stack
+import Constants
 
 data World = World Piece Stack [Int]
 
 instance Show World where show w = showsWorld w ""
 showsWorld :: World -> ShowS
 showsWorld (World p s _) = ("World:\n  Piece:\n    "++) . shows p . ("\n  Stack:\n"++) . showsStack s
-
-kWorldBounds = Vector4 (-4) (-100) 5 9
 
 timerTick :: World -> World
 timerTick world = moveDown world

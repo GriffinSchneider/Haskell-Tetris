@@ -5,10 +5,10 @@ module Stack (
   showsStack,
 ) where
 
-import Graphics.Rendering.OpenGL
 import Block
 import Piece
 import Data.List
+import Constants
 
 type Stack = [[Block]]
 
@@ -20,7 +20,7 @@ showsBlocks = foldr (\b acc -> showsBlock b . acc) (""++)
 
 addPiece :: Piece -> Stack -> Stack
 addPiece (Piece blocks _) s = foldr (\b acc -> addBlock b acc) s blocks
-  where addBlock b@(Block (Vector2 _ y) _) s = addBlockAtY b (round y) s
+  where addBlock b@(Block (V2 _ y) _) s = addBlockAtY b (round y) s
 
 removeFullRows :: Stack -> Int -> Stack
 removeFullRows s width = fixBlockYs $ removeRows s $ getFullRowIndices width s
@@ -39,4 +39,4 @@ removeRows stack nums = [x | (x,n) <- zip stack [0..], not $ elem n nums]
 -- Set block Y values to match the row they're in.
 fixBlockYs :: Stack -> Stack
 fixBlockYs stack = [setBlockYs n bs | (bs,n) <- zip stack [0..]]
-  where setBlockYs y blocks = map (\ (Block (Vector2 x _) c) -> (Block (Vector2 x (9-y)) c)) blocks
+  where setBlockYs y blocks = map (\ (Block (V2 x _) c) -> (Block (V2 x (9-y)) c)) blocks

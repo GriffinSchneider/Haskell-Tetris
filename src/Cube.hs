@@ -4,7 +4,6 @@ module Cube (
 ) where
 
 import Graphics.Rendering.OpenGL
-import Graphics.UI.GLUT
 
 -- Points on the cube
 frontTopLeft  w = vertex $ Vertex3 (-w) (-w)   w
