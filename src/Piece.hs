@@ -53,35 +53,35 @@ blockCoordsFromShape O =
    Vector2 (-0.5)   0.5 ,
    Vector2   0.5    0.5]
 blockCoordsFromShape I =
-  [Vector2   0  (-1),
-   Vector2   0    0 ,
-   Vector2   0    1 ,
-   Vector2   0    2]
+  [Vector2   0.0  (-1.0),
+   Vector2   0.0    0.0 ,
+   Vector2   0.0    1.0 ,
+   Vector2   0.0    2.0]
 blockCoordsFromShape T =
-  [Vector2   0    0 ,
-   Vector2 (-1) (-1),
-   Vector2   0  (-1),
-   Vector2   1  (-1)]
+  [Vector2   0.0    0.0 ,
+   Vector2 (-1.0) (-1.0),
+   Vector2   0.0  (-1.0),
+   Vector2   1.0  (-1.0)]
 blockCoordsFromShape J =
-  [Vector2   0  (-1),
-   Vector2   0    0 ,
-   Vector2   0    1 ,
-   Vector2 (-1)   1]
+  [Vector2   0.0  (-1.0),
+   Vector2   0.0    0.0 ,
+   Vector2   0.0    1.0 ,
+   Vector2 (-1.0)   1.0]
 blockCoordsFromShape L =
-  [Vector2   0  (-1),
-   Vector2   0    0 ,
-   Vector2   0    1 ,
-   Vector2   1    1]
+  [Vector2   0.0  (-1.0),
+   Vector2   0.0    0.0 ,
+   Vector2   0.0    1.0 ,
+   Vector2   1.0    1.0]
 blockCoordsFromShape Z =
-  [Vector2   0    0 ,
-   Vector2   1    0 ,
-   Vector2   1    1 ,
-   Vector2   2    1]
+  [Vector2   0.0    0.0,
+   Vector2   1.0    0.0,
+   Vector2   1.0    1.0,
+   Vector2   2.0    1.0]
 blockCoordsFromShape S =
-  [Vector2   1    0 ,
-   Vector2   2    0 ,
-   Vector2   0    1 ,
-   Vector2   1    1]
+  [Vector2   1.0    0.0 ,
+   Vector2   2.0    0.0 ,
+   Vector2   0.0    1.0 ,
+   Vector2   1.0    1.0]
 
 colorFromShape :: PieceShape -> Color4 GLfloat
 colorFromShape O = Color4 1.0 1.0 1.0 1.0
