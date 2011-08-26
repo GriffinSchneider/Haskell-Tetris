@@ -9,7 +9,6 @@ module TetrisWorld (
   fastFall,
   fastFallPiece,
   makeGameWithPieceList,
-  getAllBlocks,
   kWorldBounds,
 ) where
 
@@ -71,5 +70,5 @@ combinePiece :: World -> World
 combinePiece (World p s nums) = getNextPiece $ World p (removeFullRows (addPiece p s) 10) nums
 
 isCollision :: World -> Bool
-isCollision w@(World p s _) = (any (containsBlock p) (getAllBlocks s)) || (isOutsideBounds w)
+isCollision w@(World p s _) = (any (containsBlock p) (concat s)) || (isOutsideBounds w)
   where isOutsideBounds (World p _ _) = isPieceOutsideBounds p kWorldBounds

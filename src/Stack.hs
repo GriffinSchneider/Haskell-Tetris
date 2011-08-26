@@ -1,6 +1,5 @@
 module Stack (
   Stack,
-  getAllBlocks,
   addPiece,
   removeFullRows,
   showStack,
@@ -15,10 +14,6 @@ type Stack = [[Block]]
 showStack :: Stack -> String
 showStack (bs:bss) = "    " ++ (show bs) ++ "\n" ++ (showStack bss)
 showStack [] = ""
-
-getAllBlocks :: Stack -> [Block]
-getAllBlocks stack = foldr (\x acc -> addAllToList x acc) [] stack
-  where addAllToList l1 l2 = foldr (\x acc -> x:acc) l2 l1
 
 addPiece :: Piece -> Stack -> Stack
 addPiece (Piece blocks _) s = addBlocks blocks s

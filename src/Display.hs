@@ -33,7 +33,7 @@ drawPiece :: Piece -> IO ()
 drawPiece (Piece blocks _) = foldl (\ acc block -> (drawBlock block) >> acc) (return()) blocks
 
 drawStack :: Stack -> IO ()
-drawStack s =  foldl (\ acc block -> (drawBlock block) >> acc) (return()) (getAllBlocks s)
+drawStack s =  foldl (\ acc block -> (drawBlock block) >> acc) (return()) (concat s)
 
 drawGhost :: World -> IO ()
 drawGhost w@(World p s _) = drawPiece $ changePieceColor (fastFallPiece w) (Color4 1.0 1.0 1.0 0.3)
