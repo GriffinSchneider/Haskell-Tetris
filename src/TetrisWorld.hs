@@ -10,9 +10,10 @@ module TetrisWorld (
   fastFallPiece,
   makeGameWithPieceList,
   getAllBlocks,
+  kWorldBounds,
 ) where
 
-import Graphics.Rendering.OpenGL
+import Graphics.Rendering.OpenGL hiding (T, S)
 import Piece
 import Block
 import System.Random
@@ -21,13 +22,16 @@ import Stack
 
 data World = World Piece Stack [Int]
 
-instance Show World where show (World p s _) = "World: \n  Piece: \n    " ++ (show p) ++ "\n  Stack: \n" ++ (showStack s)
+instance Show World where
+  show (World p s _) = "World: \n  Piece: \n    " ++ (show p) ++ "\n  Stack: \n" ++ (showStack s)
+
+kWorldBounds = Vector4 (-4) (-100) 5 9
 
 timerTick :: World -> World
 timerTick world = moveDown world
 
 makeGameWithPieceList :: [Int] -> World
-makeGameWithPieceList nums = getNextPiece $ World (makePiece Piece.T) [] nums
+makeGameWithPieceList nums = getNextPiece $ World (makePiece T) [] nums
 
 -- Key event functions
 moveLeft :: World -> World
@@ -61,15 +65,11 @@ fastFallPiece world@(World p s nums) =
 -- Helper functions
 getNextPiece :: World -> World
 getNextPiece (World _ stack nums) = World (pieceFromNumber (head nums)) stack (tail nums)
-
-pieceFromNumber :: Int -> Piece
-pieceFromNumber n = (map makePiece [Piece.O,Piece.I,Piece.T,Piece.J,Piece.L,Piece.Z,Piece.S]) !! n
+  where pieceFromNumber n = (map makePiece [O,I,T,J,L,Z,S]) !! n
 
 combinePiece :: World -> World
 combinePiece (World p s nums) = getNextPiece $ World p (removeFullRows (addPiece p s) 10) nums
 
 isCollision :: World -> Bool
-isCollision world@(World p s _) = (any (containsBlock p) (getAllBlocks s)) || (isOutsideBounds world)
-
-isOutsideBounds :: World -> Bool
-isOutsideBounds (World p _ _) = isPieceOutsideBounds p (-4) (-100) 5 9
+isCollision w@(World p s _) = (any (containsBlock p) (getAllBlocks s)) || (isOutsideBounds w)
+  where isOutsideBounds (World p _ _) = isPieceOutsideBounds p kWorldBounds

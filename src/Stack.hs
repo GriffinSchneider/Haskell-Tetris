@@ -27,33 +27,32 @@ addPiece (Piece blocks _) s = addBlocks blocks s
 
 removeFullRows :: Stack -> Int -> Stack
 removeFullRows s width = setBlockYsByRowNumber $ removeRows s fullRows
-  where fullRows = getFullRowIndices s width
+  where fullRows                  = getFullRowIndices s width
         getFullRowIndices s width = getTrueIndices $ map (\b -> isRowFull b width) s
-        isRowFull blocks width = (length blocks) >= width
+        isRowFull blocks width    = (length blocks) >= width
 
 -- Helper functions
-
 addBlockAtRow :: Block -> Int -> Stack -> Stack
-addBlockAtRow b r ss = addBlockAtRowH b (9 - r) ss
-addBlockAtRowH b r   []   = if (r == 0) then [[b]]    else []:(addBlockAtRowH b (r - 1) [])
-addBlockAtRowH b r (s:ss) = if (r == 0) then (b:s):ss else  s:(addBlockAtRowH b (r - 1) ss)
+addBlockAtRow b r ss = help b (9 - r) ss
+  where help b r   []   = if (r == 0) then [[b]]    else []:(help b (r - 1) [])
+        help b r (s:ss) = if (r == 0) then (b:s):ss else  s:(help b (r - 1) ss)
 
 removeRows :: Stack -> [Int] -> Stack
-removeRows stack nums = removeRowsH stack nums 0
-removeRowsH :: Stack -> [Int] -> Int -> Stack
-removeRowsH (s:[]) nums acc = if elem acc nums then [] else [s]
-removeRowsH (s:ss) nums acc = if elem acc nums then x else s:x
-  where x = removeRowsH ss nums (acc + 1)
+removeRows stack nums = help stack nums 0
+ where help (s:[]) nums acc = if elem acc nums then [] else [s]
+       help (s:ss) nums acc = if elem acc nums then x else s:x
+         where x = help ss nums (acc + 1)
 
 getTrueIndices :: [Bool] -> [Int]
-getTrueIndices l =  getTrueIndicesH l 0
-getTrueIndicesH :: [Bool] -> Int -> [Int]
-getTrueIndicesH [] acc = []
-getTrueIndicesH (b:bs) acc = if b then acc:next else next
-  where next = getTrueIndicesH bs (acc + 1)
+getTrueIndices l =  help l 0
+  where help [] acc = []
+        help (b:bs) acc = if b then acc:next else next
+          where next = help bs (acc + 1)
 
 setBlockYsByRowNumber :: Stack -> Stack
-setBlockYsByRowNumber stack = setBlockYsByRowNumberH stack 0
-setBlockYsByRowNumberH :: Stack -> Int -> Stack
-setBlockYsByRowNumberH [] acc = []
-setBlockYsByRowNumberH (bs:bss) acc = (map (\ (Block (Vector2 x _) c) -> (Block (Vector2 x (fromIntegral (9 - acc))) c)) bs):(setBlockYsByRowNumberH bss (acc + 1))
+setBlockYsByRowNumber stack = help stack 0
+ where help [] acc = []
+       help (bs:bss) acc =
+         (:) (map (\ (Block (Vector2 x _) c) -> (Block (Vector2 x (fromIntegral (9 - acc))) c))
+                  bs)
+             (help bss (acc + 1))

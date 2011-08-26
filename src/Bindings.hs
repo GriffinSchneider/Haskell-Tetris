@@ -27,6 +27,6 @@ worldAfterKey world k Down
   | k == (Char ' ')            = fastFall world
   | k == (SpecialKey KeyLeft)  = moveLeft world
   | k == (SpecialKey KeyRight) = moveRight world
-  | k == (SpecialKey KeyUp)    = rotateTetra world CounterClockwise
+  | k == (SpecialKey KeyUp)    = rotateTetra world Ccw
   | k == (SpecialKey KeyDown)  = moveDown world
 worldAfterKey world _ _ = world
