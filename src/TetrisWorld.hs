@@ -21,8 +21,9 @@ import Stack
 
 data World = World Piece Stack [Int]
 
-instance Show World where
-  show (World p s _) = "World: \n  Piece: \n    " ++ (show p) ++ "\n  Stack: \n" ++ (showStack s)
+instance Show World where show w = showsWorld w ""
+showsWorld :: World -> ShowS
+showsWorld (World p s _) = ("World:\n  Piece:\n    "++) . shows p . ("\n  Stack:\n"++) . showsStack s
 
 kWorldBounds = Vector4 (-4) (-100) 5 9
 

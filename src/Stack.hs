@@ -2,7 +2,7 @@ module Stack (
   Stack,
   addPiece,
   removeFullRows,
-  showStack,
+  showsStack,
 ) where
 
 import Graphics.Rendering.OpenGL
@@ -12,10 +12,11 @@ import Data.List
 
 type Stack = [[Block]]
 
-showStack s = showsStack s ""
-
 showsStack :: Stack -> ShowS
-showsStack = foldr (\bs acc -> ("    "++) . shows bs . ('\n':) . acc) (""++)
+showsStack = foldr (\bs acc -> ("    "++) . showsBlocks bs . ('\n':) . acc) (""++)
+
+showsBlocks :: [Block] -> ShowS
+showsBlocks = foldr (\b acc -> showsBlock b . acc) (""++)
 
 addPiece :: Piece -> Stack -> Stack
 addPiece (Piece blocks _) s = foldr (\b acc -> addBlock b acc) s blocks

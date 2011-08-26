@@ -8,6 +8,7 @@ module Block (
   left,
   right,
   down,
+  showsBlock
 ) where
 
 import Graphics.Rendering.OpenGL
@@ -16,8 +17,9 @@ import Cube
 
 data Block = Block (Vector2 GLfloat) (Color4 GLfloat)
 
-instance Show Block where
-  show (Block (Vector2 x y) _) = "|" ++ (show x) ++ ", " ++ (show (round y)) ++ "|"
+instance Show Block where show b = showsBlock b ""
+showsBlock :: Block -> ShowS
+showsBlock (Block (Vector2 x y) _) = ('|':) . shows x . (", "++) . shows (round y) . ('|':)
 
 -- | RotateDirection - Clockwise or Counter-Clockwise
 data RotateDirection = Cw | Ccw
