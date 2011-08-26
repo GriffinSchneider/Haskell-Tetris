@@ -36,7 +36,7 @@ rotateBlock (Block v color) center direction = Block (rotateVector v center dire
 rotateVector :: Vector2 GLfloat -> Vector2 GLfloat -> RotateDirection -> Vector2 GLfloat
 rotateVector v@(Vector2 x y) c@(Vector2 cx cy) dir = case dir of
   Ccw -> Vector2 (cx + (cy - y)) (cy + (x - cx))
-  _  -> rotateVector (rotateVector (rotateVector v c Ccw) c Ccw) c Ccw
+  _   -> rotateVector (rotateVector (rotateVector v c Ccw) c Ccw) c Ccw
 
 matchesVector :: Block -> Vector2 GLfloat -> Bool
 matchesVector (Block (Vector2 x y) _) (Vector2 x1 y1) = x == x1 && y == y1
