@@ -39,4 +39,4 @@ removeRows stack nums = [x | (x,n) <- zip stack [0..], not $ elem n nums]
 -- Set block Y values to match the row they're in.
 fixBlockYs :: Stack -> Stack
 fixBlockYs stack = [setBlockYs n bs | (bs,n) <- zip stack [0..]]
-  where setBlockYs y blocks = map (\ (Block (V2 x _) c) -> (Block (V2 x (9-y)) c)) blocks
+  where setBlockYs y blocks = map (\ (Block (V2 x _) c) -> Block (V2 x $ 9-y) c) blocks
