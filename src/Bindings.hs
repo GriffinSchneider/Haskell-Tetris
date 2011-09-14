@@ -28,4 +28,8 @@ worldAfterKey world k Down
   | k == (SpecialKey KeyRight) = moveRight world
   | k == (SpecialKey KeyUp)    = rotateTetra world Ccw
   | k == (SpecialKey KeyDown)  = moveDown world
+  | k == (Char 'h')            = moveLeft world
+  | k == (Char 'j')            = moveDown world
+  | k == (Char 'k')            = rotateTetra world Ccw
+  | k == (Char 'l')            = moveRight world
 worldAfterKey world _ _ = world
